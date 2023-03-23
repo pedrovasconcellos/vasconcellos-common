@@ -1,6 +1,6 @@
-﻿using Vasconcellos.Common.Result.Enums;
+﻿using Vasconcellos.Common.Results.Enums;
 
-namespace Vasconcellos.Common.Result.Domain
+namespace Vasconcellos.Common.Results.Domain
 {
     public class Error
     {

@@ -1,4 +1,4 @@
-﻿namespace Vasconcellos.Common.Result.Enums
+﻿namespace Vasconcellos.Common.Results.Enums
 {
 	public enum ResultStatus : int
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Vasconcellos.Common.Result.Enums;
+using Vasconcellos.Common.Results.Enums;
 
-namespace Vasconcellos.Common.Result.Domain
+namespace Vasconcellos.Common.Results.Domain
 {
     public class Result<T>
     {
@@ -70,9 +70,13 @@ namespace Vasconcellos.Common.Result.Domain
 
         public Result<T> AddError(string code, string message, ResultStatus type = ResultStatus.BadDomain)
         {
-            this.Errors.Add(new Error(code, message, type));
+            this.AddError(new Error(code, message, type));
             return this;
         }
+
+        public Error GetError() => Errors
+            .OrderByDescending(x => (int)x.Type)
+            .FirstOrDefault();
     }
 }
 
