@@ -27,7 +27,7 @@ namespace Vasconcellos.Common.Results.Domain
             Errors = new List<Error> { error };
         }
 
-        private Result(string code, string message, ResultStatus type = ResultStatus.BadDomain)
+        private Result(string code, string message, ErrorType type = ErrorType.BadDomain)
         {
             var error = new Error(code, message, type);
             Errors = new List<Error> { error };
@@ -45,7 +45,7 @@ namespace Vasconcellos.Common.Results.Domain
             return result;
         }
 
-        public static Result<T> Fail(string code, string message, ResultStatus type = ResultStatus.BadDomain)
+        public static Result<T> Fail(string code, string message, ErrorType type = ErrorType.BadDomain)
         {
             var result = new Result<T>(code, message, type);
             return result;
@@ -53,7 +53,7 @@ namespace Vasconcellos.Common.Results.Domain
 
         public static Result<T> FailNotFound(string code, string message)
         {
-            var result = new Result<T>(code, message, ResultStatus.NotFound);
+            var result = new Result<T>(code, message, ErrorType.NotFound);
             return result;
         }
 
@@ -68,7 +68,7 @@ namespace Vasconcellos.Common.Results.Domain
             return this;
         }
 
-        public Result<T> AddError(string code, string message, ResultStatus type = ResultStatus.BadDomain)
+        public Result<T> AddError(string code, string message, ErrorType type = ErrorType.BadDomain)
         {
             this.AddError(new Error(code, message, type));
             return this;

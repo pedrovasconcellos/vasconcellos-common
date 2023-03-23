@@ -4,7 +4,7 @@ namespace Vasconcellos.Common.Results.Domain
 {
     public class Error
     {
-        public Error(string code, string message, ResultStatus type = ResultStatus.BadDomain)
+        public Error(string code, string message, ErrorType type = ErrorType.BadDomain)
         {
             Code = code;
             Message = message;
@@ -13,7 +13,7 @@ namespace Vasconcellos.Common.Results.Domain
 
         public string Code { get; }
         public string Message { get; }
-        public ResultStatus Type { get; }
+        public ErrorType Type { get; }
     }
 }
 
