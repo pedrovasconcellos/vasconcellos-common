@@ -32,4 +32,12 @@
     <Folder Include="Enums\" />
     <Folder Include="Domain\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\vasconcellos-solutions.jpg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
 </Project>
