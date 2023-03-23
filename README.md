@@ -11,7 +11,7 @@
 - Nuget: https://www.nuget.org/packages/Vasconcellos.Common.Results
 - Nuget .NET CLI: dotnet add package Vasconcellos.Common.Results
 
-Example of using the Vasconcellos.Common.Result.
+Example of using the Vasconcellos.Common.Result [Service].
 ```csharp
 public async Task<Result<Guid>> ExecuteAsync(EmailCommand command)
 {
@@ -21,11 +21,13 @@ public async Task<Result<Guid>> ExecuteAsync(EmailCommand command)
     {
         var entity = new EmailEntity(command);
         if (entity.IsFailure)
-            return Result<Guid>.Fail(entity.ErrorCode, entity.ErrorMessage, ErrorType.UnprocessableEntity);
+            return Result<Guid>.Fail(entity.ErrorCode, entity.ErrorMessage, ErrorType.BadDomain);
 
-        var resultID = await _triggerService.Executesync(entity);
-        
-        return Result<Guid>.Success(resultID);
+        var result = await _triggerService.Executesync(entity);
+        if (result.IsSuccess)
+            return Result<Guid>.Success(result.Value);
+
+        return Result<Guid>.Fail(result.Errors);
     }
     catch (Exception ex)
     {
@@ -34,6 +36,25 @@ public async Task<Result<Guid>> ExecuteAsync(EmailCommand command)
     }
 }
 ```
+Example of using the Vasconcellos.Common.Result [Controller].
+```csharp
+    [HttpGet(Name = "post-example")]
+    [ProducesResponseType(typeof(IEnumerable<Guid>), (int)HttpStatusCode.Create)]
+    [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.InternalServerError)]
+    public async Task<IActionResult> PostExample()
+    {
+        var command = new EmailCommand();
+        var result = await _serviceExecuteAsync(command);
+
+        if (result.IsSuccess)
+            return this.StatusCode((int)HttpStatusCode.Create, result.Value);
+
+        return this.StatusCode((int)result.GetError().Type, result.Errors);
+    }
+```
+
 
 ## Sponsor
 [![Vasconcellos Solutions](https://vasconcellos.solutions/assets/open-source/images/company/vasconcellos-solutions-small-icon.jpg)](https://www.vasconcellos.solutions)
