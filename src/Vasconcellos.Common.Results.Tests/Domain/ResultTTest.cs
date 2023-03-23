@@ -1,7 +1,5 @@
-﻿using System;
-using Vasconcellos.Common.Results.Domain;
+﻿using Vasconcellos.Common.Results.Domain;
 using Vasconcellos.Common.Results.Enums;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Vasconcellos.Common.Results.Tests.Domain
 {

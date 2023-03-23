@@ -1,10 +1,9 @@
-﻿using System;
-using Vasconcellos.Common.Results.Domain;
+﻿using Vasconcellos.Common.Results.Domain;
 using Vasconcellos.Common.Results.Enums;
 
 namespace Vasconcellos.Common.Results.Tests.Domain
 {
-	public class ResultTest
+    public class ResultTest
     {
         private readonly string _codeDefault = "code_default";
         private readonly string _messageDefault = "message_default";
