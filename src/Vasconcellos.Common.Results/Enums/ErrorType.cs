@@ -1,9 +1,8 @@
 ﻿namespace Vasconcellos.Common.Results.Enums
 {
-	public enum ResultStatus : int
+	public enum ErrorType : int
     {
         InvalidStatus = 0,
-        Ok = 200,
         BadDomain = 400,
         Unauthorized = 401,
         Forbidden = 403,

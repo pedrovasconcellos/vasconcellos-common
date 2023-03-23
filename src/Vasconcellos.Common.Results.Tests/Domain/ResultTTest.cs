@@ -18,7 +18,7 @@ namespace Vasconcellos.Common.Results.Tests.Domain
             var result = Result<object>.Fail(_codeDefault, _messageDefault);
 
             var error = result.GetError();
-            Assert.Equal(ResultStatus.BadDomain, error.Type);
+            Assert.Equal(ErrorType.BadDomain, error.Type);
             Assert.Equal(_codeDefault, error.Code);
             Assert.Equal(_messageDefault, error.Message);
 
@@ -31,7 +31,7 @@ namespace Vasconcellos.Common.Results.Tests.Domain
             var result = Result<object>.FailNotFound(_codeDefault, _messageDefault);
 
             var error = result.GetError();
-            Assert.Equal(ResultStatus.NotFound, error.Type);
+            Assert.Equal(ErrorType.NotFound, error.Type);
             Assert.Equal(_codeDefault, error.Code);
             Assert.Equal(_messageDefault, error.Message);
 
@@ -39,12 +39,12 @@ namespace Vasconcellos.Common.Results.Tests.Domain
         }
 
         [Theory]
-        [InlineData(ResultStatus.Forbidden)]
-        [InlineData(ResultStatus.Unauthorized)]
-        [InlineData(ResultStatus.Unexpected)]
-        [InlineData(ResultStatus.UnprocessableEntity)]
-        [InlineData(ResultStatus.BadDomain)]
-        public async Task Should_FailDefault_ReturnErrorTypeX(ResultStatus status)
+        [InlineData(ErrorType.Forbidden)]
+        [InlineData(ErrorType.Unauthorized)]
+        [InlineData(ErrorType.Unexpected)]
+        [InlineData(ErrorType.UnprocessableEntity)]
+        [InlineData(ErrorType.BadDomain)]
+        public async Task Should_FailDefault_ReturnErrorTypeX(ErrorType status)
         {
             var result = Result<object>.Fail(_codeDefault, _messageDefault, status);
 
@@ -70,17 +70,17 @@ namespace Vasconcellos.Common.Results.Tests.Domain
         }
 
         [Theory]
-        [InlineData(ResultStatus.Forbidden)]
-        [InlineData(ResultStatus.Unauthorized)]
-        [InlineData(ResultStatus.UnprocessableEntity)]
-        [InlineData(ResultStatus.BadDomain)]
-        public async Task Should_FailDefault_ReturnErrorTypeUnexpected(ResultStatus status)
+        [InlineData(ErrorType.Forbidden)]
+        [InlineData(ErrorType.Unauthorized)]
+        [InlineData(ErrorType.UnprocessableEntity)]
+        [InlineData(ErrorType.BadDomain)]
+        public async Task Should_FailDefault_ReturnErrorTypeUnexpected(ErrorType status)
         {
             var result = Result<object>.Fail(_codeDefault, _messageDefault, status);
-            result.AddError(_codeDefault, _messageDefault, ResultStatus.Unexpected);
+            result.AddError(_codeDefault, _messageDefault, ErrorType.Unexpected);
 
             var error = result.GetError();
-            Assert.Equal(ResultStatus.Unexpected, error.Type);
+            Assert.Equal(ErrorType.Unexpected, error.Type);
             Assert.Equal(_codeDefault, error.Code);
             Assert.Equal(_messageDefault, error.Message);
 
