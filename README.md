@@ -39,7 +39,7 @@ public async Task<Result<Guid>> ExecuteAsync(EmailCommand command)
 Example of using the Vasconcellos.Common.Result [Controller].
 ```csharp
     [HttpGet(Name = "post-example")]
-    [ProducesResponseType(typeof(IEnumerable<Guid>), (int)HttpStatusCode.Create)]
+    [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.Create)]
     [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.InternalServerError)]
