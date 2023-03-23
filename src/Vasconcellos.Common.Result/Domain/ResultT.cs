@@ -6,7 +6,7 @@ namespace Vasconcellos.Common.Result.Domain
 {
     public class Result<T>
     {
-        public T Value { get; private set; }
+        public T Value { get; private set; } = default!;
         public IList<Error> Errors { get; private set; }
         public bool IsFailure => Errors.Any();
         public bool IsSuccess => !IsFailure;
