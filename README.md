@@ -7,7 +7,7 @@
 ##### Author: Pedro Henrique Vasconcellos
 ##### Sponsor: https://vasconcellos.solutions
 
-## Vasconcellos.Common.Result is a library for returning the result of functions.
+## Vasconcellos.Common.Result is a library to facilitate the return of function results with error messages handling.
 - Nuget: https://www.nuget.org/packages/Vasconcellos.Common.Results
 - Nuget .NET CLI: dotnet add package Vasconcellos.Common.Results
 
