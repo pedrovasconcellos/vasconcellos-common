@@ -38,14 +38,13 @@ public async Task<Result<Guid>> ExecuteAsync(EmailCommand command)
 ```
 Example of using the Vasconcellos.Common.Result [Controller].
 ```csharp
-    [HttpGet(Name = "post-example")]
+    [HttpPost(Name = "post-example")]
     [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.Create)]
     [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.InternalServerError)]
-    public async Task<IActionResult> PostExample()
+    public async Task<IActionResult> PostExample([FromBody] EmailCommand command)
     {
-        var command = new EmailCommand();
         var result = await _serviceExecuteAsync(command);
 
         if (result.IsSuccess)
