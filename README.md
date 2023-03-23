@@ -16,12 +16,12 @@ Example of using the Vasconcellos.Common.Result.
 public async Task<Result<Guid>> ExecuteAsync(EmailCommand command)
 {
     if (command == null)
-        return Result<Guid>.Fail("COMMAND_IS_NULL","Request is null", ResultStatus.BadDomain);
+        return Result<Guid>.Fail("COMMAND_IS_NULL","Request is null", ErrorType.BadDomain);
     try
     {
         var entity = new EmailEntity(command);
         if (entity.IsFailure)
-            return Result<Guid>.Fail(entity.ErrorCode, entity.ErrorMessage, ResultStatus.UnprocessableEntity);
+            return Result<Guid>.Fail(entity.ErrorCode, entity.ErrorMessage, ErrorType.UnprocessableEntity);
 
         var resultID = await _triggerService.Executesync(entity);
         
@@ -30,7 +30,7 @@ public async Task<Result<Guid>> ExecuteAsync(EmailCommand command)
     catch (Exception ex)
     {
         _logger.LogError($"Error: {ex.Message}", ex);
-        return Result<Guid>.Fail("ERROR_EXCEPTION", ex.Message, ResultStatus.Unexpected);
+        return Result<Guid>.Fail("ERROR_EXCEPTION", ex.Message, ErrorType.Unexpected);
     }
 }
 ```
