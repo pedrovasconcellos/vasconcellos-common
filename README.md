@@ -45,7 +45,7 @@ Example of using the Vasconcellos.Common.Result [Controller].
     [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.InternalServerError)]
     public async Task<IActionResult> PostExample([FromBody] EmailCommand command)
     {
-        var result = await _serviceExecuteAsync(command);
+        var result = await _service.ExecuteAsync(command);
 
         if (result.IsSuccess)
             return this.StatusCode((int)HttpStatusCode.Create, result.Value);

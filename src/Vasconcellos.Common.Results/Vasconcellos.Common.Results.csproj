@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>Library for returning the result of functions.</Description>
+    <Description>Vasconcellos.Common.Result is a library to facilitate the return of function results with error messages handling.</Description>
     <PackageProjectUrl>https://github.com/pedrovasconcellos/vasconcellos-common</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReleaseNotes>Add Result</PackageReleaseNotes>
