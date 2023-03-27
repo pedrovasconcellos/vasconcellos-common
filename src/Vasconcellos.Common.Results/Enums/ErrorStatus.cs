@@ -1,6 +1,6 @@
 ﻿namespace Vasconcellos.Common.Results.Enums
 {
-	public enum ErrorType : int
+	public enum ErrorStatus : int
     {
         InvalidStatus = 0,
         BadDomain = 400,

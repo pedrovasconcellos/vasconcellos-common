@@ -38,19 +38,36 @@ public async Task<Result<Guid>> ExecuteAsync(EmailCommand command)
 ```
 Example of using the Vasconcellos.Common.Result [Controller].
 ```csharp
-    [HttpPost(Name = "post-example")]
+    [HttpPost(Name = "post-example-1")]
     [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.Create)]
     [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.InternalServerError)]
-    public async Task<IActionResult> PostExample([FromBody] EmailCommand command)
+    public async Task<IActionResult> PostExample1([FromBody] EmailCommand command)
     {
         var result = await _service.ExecuteAsync(command);
 
         if (result.IsSuccess)
             return this.StatusCode((int)HttpStatusCode.Create, result.Value);
 
-        return this.StatusCode((int)result.GetError().Type, result.Errors);
+        //It is recommended to use [method: GetGreaterStatus] to recover the last most serious error.
+        return this.StatusCode((int)result.GetGreaterStatus(), result.Errors);
+    }
+
+    [HttpPost(Name = "post-example-2")]
+    [ProducesResponseType(typeof(Guid), (int)HttpStatusCode.Create)]
+    [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType(typeof(IEnumerable<Error>), (int)HttpStatusCode.InternalServerError)]
+    public async Task<IActionResult> PostExample2([FromBody] EmailCommand command)
+    {
+        var result = await _service.ExecuteAsync(command);
+
+        if (result.IsSuccess)
+            return this.StatusCode((int)HttpStatusCode.Create, result.Value);
+
+        //The difference is here [method: GetLastStatus].
+        return this.StatusCode((int)result.GetLastStatus(), result.Errors); 
     }
 ```
 
