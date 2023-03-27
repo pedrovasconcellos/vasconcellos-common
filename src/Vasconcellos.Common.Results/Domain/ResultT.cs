@@ -27,9 +27,9 @@ namespace Vasconcellos.Common.Results.Domain
             Errors = new List<Error> { error };
         }
 
-        private Result(string code, string message, ErrorType type = ErrorType.BadDomain)
+        private Result(string code, string message, ErrorStatus errorStatus = ErrorStatus.BadDomain)
         {
-            var error = new Error(code, message, type);
+            var error = new Error(code, message, errorStatus);
             Errors = new List<Error> { error };
         }
 
@@ -45,15 +45,15 @@ namespace Vasconcellos.Common.Results.Domain
             return result;
         }
 
-        public static Result<T> Fail(string code, string message, ErrorType type = ErrorType.BadDomain)
+        public static Result<T> Fail(string code, string message, ErrorStatus errorStatus = ErrorStatus.BadDomain)
         {
-            var result = new Result<T>(code, message, type);
+            var result = new Result<T>(code, message, errorStatus);
             return result;
         }
 
         public static Result<T> FailNotFound(string code, string message)
         {
-            var result = new Result<T>(code, message, ErrorType.NotFound);
+            var result = new Result<T>(code, message, ErrorStatus.NotFound);
             return result;
         }
 
@@ -68,15 +68,41 @@ namespace Vasconcellos.Common.Results.Domain
             return this;
         }
 
-        public Result<T> AddError(string code, string message, ErrorType type = ErrorType.BadDomain)
+        public Result<T> AddError(string code, string message, ErrorStatus errorStatus = ErrorStatus.BadDomain)
         {
-            this.AddError(new Error(code, message, type));
+            this.AddError(new Error(code, message, errorStatus));
             return this;
         }
 
-        public Error GetError() => Errors
-            .OrderByDescending(x => (int)x.Type)
+        /// <summary>
+        /// Recovers the last most serious error.
+        /// </summary>
+        /// <returns>Error?</returns>
+        public Error? GetErrorWithGreaterStatus() => Errors
+            .OrderByDescending(x => (int)x.ErrorStatus)
+            .ThenByDescending(x => x.GetCreationDate())
             .FirstOrDefault();
+
+        /// <summary>
+        /// Recovers the last most serious status.
+        /// </summary>
+        /// <returns>ErrorStatus?</returns>
+        public ErrorStatus? GetGreaterStatus() =>
+            GetErrorWithGreaterStatus()?.ErrorStatus;
+
+        /// <summary>
+        /// Recovers the last error.
+        /// </summary>
+        /// <returns>Error?</returns>
+        public Error? GetErrorWithLastStatus() => Errors
+            .LastOrDefault();
+
+        /// <summary>
+        /// Recovers the last status.
+        /// </summary>
+        /// <returns>ErrorStatus?</returns>
+        public ErrorStatus? GetLastStatus() =>
+            GetErrorWithLastStatus()?.ErrorStatus;
     }
 }
 
